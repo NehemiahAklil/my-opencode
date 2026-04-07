@@ -1,0 +1,16 @@
+{
+  "plugin": [
+    "oh-my-openagent@latest"
+  ],
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "context7": {
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp",
+        "headers": {
+          "CONTEXT7_API_KEY": "ctx7sk-da88304d-83d2-466a-a02a-280b82f3d962"
+        },
+        "enabled": true
+      }
+   }
+}
