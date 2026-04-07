@@ -87,7 +87,7 @@
       "fallback": ["opencode-go/mimo-v2-pro"]
     },
     "unspecified-high": {
-      "model": "opencode-go/mimo-v2-omi",
+      "model": "opencode-go/mimo-v2-omni",
       "fallback": ["github-copilot/gpt-5.2", "opencode-go/glm-5"]
     },
     "unspecified-low": {
