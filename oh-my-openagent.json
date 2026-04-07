@@ -2,46 +2,32 @@
   "agents": {
     "sisyphus": {
       "model": "opencode-go/mimo-v2-pro",
-      "fallback": [
-        "opencode-go/kimi-k2.5",
-        "opencode-go/glm-5",
-        "opencode-go/big-pickle"
-      ]
+      "fallback": ["opencode-go/kimi-k2.5", "opencode-go/glm-5"]
     },
 
     "atlas": {
       "model": "opencode-go/kimi-k2.5",
-      "fallback": [
-        "opencode-go/minimax-m2.7",
-        "github-copilot/gpt-5.4-mini"
-      ]
+      "fallback": ["opencode-go/minimax-m2.7", "github-copilot/gpt-5.4-mini"]
     },
 
     "prometheus": {
       "model": "opencode-go/mimo-v2-pro",
-      "fallback": [
-        "opencode-go/kimi-k2.5",
-        "github-copilot/gpt-5.2"
-      ]
+      "fallback": ["opencode-go/kimi-k2.5", "github-copilot/gpt-5.2"]
     },
 
     "metis": {
       "model": "opencode-go/mimo-v2-pro",
-      "fallback": [
-        "opencode-go/kimi-k2.5"
-      ]
+      "fallback": ["opencode-go/kimi-k2.5"]
     },
 
     "hephaestus": {
       "model": "github-copilot/gpt-5.3-codex",
-      "fallback": [
-        "github-copilot/gpt-5.2-codex",
-        "github-copilot/gpt-5.2"
-      ]
+      "fallback": ["github-copilot/gpt-5.2-codex", "github-copilot/gpt-5.2"]
     },
 
     "oracle": {
       "model": "github-copilot/gpt-5.2",
+      "variant": "high",
       "fallback": [
         "github-copilot/gemini-3.1-pro-preview",
         "github-copilot/gpt-5.2-codex"
@@ -50,17 +36,12 @@
 
     "momus": {
       "model": "github-copilot/gpt-5.2",
-      "fallback": [
-        "github-copilot/gpt-5.2-codex"
-      ]
+      "fallback": ["github-copilot/gpt-5.2-codex"]
     },
 
     "sisyphus-junior": {
       "model": "opencode-go/kimi-k2.5",
-      "fallback": [
-        "opencode-go/minimax-m2.7",
-        "opencode-go/minimax-m2.5"
-      ]
+      "fallback": ["opencode-go/minimax-m2.7", "opencode-go/minimax-m2.5"]
     },
 
     "librarian": {
@@ -81,9 +62,7 @@
 
     "multimodal-looker": {
       "model": "github-copilot/gemini-3-flash-preview",
-      "fallback": [
-        "github-copilot/gemini-2.5-pro"
-      ]
+      "fallback": ["github-copilot/gemini-2.5-pro"]
     }
   },
 
@@ -94,7 +73,10 @@
     },
     "ultrabrain": {
       "model": "github-copilot/gpt-5.2",
-      "fallback": ["github-copilot/gemini-3.1-pro-preview", "opencode-go/mimo-v2-pro"]
+      "fallback": [
+        "github-copilot/gemini-3.1-pro-preview",
+        "opencode-go/mimo-v2-pro"
+      ]
     },
     "visual-engineering": {
       "model": "github-copilot/gemini-3.1-pro-preview",
@@ -105,16 +87,23 @@
       "fallback": ["opencode-go/mimo-v2-pro"]
     },
     "unspecified-high": {
-      "model": "opencode-go/mimo-v2-pro",
+      "model": "opencode-go/mimo-v2-omi",
       "fallback": ["github-copilot/gpt-5.2", "opencode-go/glm-5"]
     },
     "unspecified-low": {
-      "model": "opencode-go/kimi-k2.5",
-      "fallback": ["github-copilot/gpt-5.3-codex", "opencode-go/minimax-m2.7"]
+      "model": "github-copilot/claude-sonnet-4.5",
+      "fallback": [
+        "opencode-go/kimi-k2.5",
+        "github-copilot/gpt-5.3-codex",
+        "opencode-go/minimax-m2.7"
+      ]
     },
     "quick": {
       "model": "opencode-go/minimax-m2.7",
-      "fallback": ["github-copilot/gemini-3-flash-preview", "opencode-go/minimax-m2.5"]
+      "fallback": [
+        "github-copilot/gemini-3-flash-preview",
+        "opencode-go/minimax-m2.5"
+      ]
     },
     "writing": {
       "model": "github-copilot/gemini-3-flash-preview",
