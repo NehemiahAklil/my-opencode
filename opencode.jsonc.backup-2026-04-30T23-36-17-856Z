@@ -1,6 +1,6 @@
 {
   "plugin": [
-    "oh-my-openagent@3.17.12"
+    "oh-my-openagent@latest"
   ],
   "$schema": "https://opencode.ai/config.json",
   "provider": {
