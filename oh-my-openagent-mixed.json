@@ -1,0 +1,244 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
+
+  "_comment_strategy": [
+    "SUBSCRIPTION BALANCE STRATEGY",
+    "---",
+    "GitHub Copilot (student) → GPT-native agents (Hephaestus, Oracle, Momus),",
+    "  utility agents (Explore, Librarian, Multimodal-Looker), visual/deep categories.",
+    "OpenCode Go ($10/mo)   → Claude-native orchestration path (Sisyphus, Prometheus,",
+    "  Metis, Atlas) using Kimi/GLM/DeepSeek. Quick/cheap work uses qwen3.5-plus",
+    "  and deepseek-v4-flash (massive quotas: 10200 and 31650 req/5hr respectively).",
+    "---",
+    "DEPRECATED → REPLACED",
+    "  mimo-v2-pro          → opencode-go/mimo-v2.5-pro",
+    "  mimo-v2-omni         → opencode-go/mimo-v2.5",
+    "  minimax-m2.7-highspeed → opencode-go/minimax-m2.7",
+    "  gpt-5.3-codex        → github-copilot/gpt-5.2-codex  (only codex available)",
+    "  gpt-5.4              → not available; replaced by gpt-5.2 at high variant",
+    "  claude-opus-4.6      → not in Copilot list; removed",
+    "  claude-sonnet-4.5    → not in Copilot list; removed",
+    "  xiaomi-token-plan-sgp/* → gone",
+    "---",
+    "AGENT GROUPS (per omo docs)",
+    "  Claude-native  (1100-line prompts, instruction-following): Sisyphus, Prometheus, Metis",
+    "  Dual-prompt    (Claude preferred, GPT fallback):           Atlas, Sisyphus-Junior",
+    "  GPT-native     (principle-driven, autonomous):             Hephaestus, Oracle, Momus",
+    "  Utility/speed  (fast + cheap):                             Explore, Librarian, Multimodal-Looker"
+  ],
+
+  "agents": {
+    "sisyphus": {
+      "_comment": "Main orchestrator. Claude-native prompt (~1100 lines). Kimi K2.6 is vision-capable and best OSS substitute for Claude Opus. Stay on Go to preserve Copilot for GPT-native agents.",
+      "model": "opencode-go/deepseek-v4-pro",
+      "fallback_models": [
+        { "model": "opencode-go/mimo-v2.5" },
+        { "model": "opencode-go/kimi-k2.5" },
+        { "model": "opencode-go/glm-5.1" },
+        { "model": "github-copilot/gemini-3.1-pro-preview", "variant": "high" }
+      ],
+      "fallback": [
+        "opencode-go/mimo-v2.5",
+        "opencode-go/kimi-k2.5",
+        "opencode-go/glm-5.1"
+      ]
+    },
+
+    "hephaestus": {
+      "_comment": "MUST be GPT-codex. No substitute. Autonomous deep worker — give it a goal, not a recipe. gpt-5.2-codex is the only codex model in your available Copilot list. No fallback per omo docs.",
+      "model": "github-copilot/gpt-5.2-codex",
+      "variant": "medium"
+    },
+
+    "oracle": {
+      "_comment": "Read-only high-IQ consultant. GPT-native, principle-driven. Move entirely to Copilot to save Go quota. gpt-5.2 high is the strongest available GPT reasoning model in your list.",
+      "model": "github-copilot/gpt-5.2",
+      "variant": "high",
+      "fallback_models": [
+        { "model": "github-copilot/gemini-3.1-pro-preview", "variant": "high" },
+        { "model": "github-copilot/gemini-2.5-pro" },
+        { "model": "opencode-go/kimi-k2.5" }
+      ],
+      "fallback": [
+        "github-copilot/gemini-3.1-pro-preview",
+        "github-copilot/gemini-2.5-pro"
+      ]
+    },
+
+    "librarian": {
+      "_comment": "Docs + OSS code search. Speed matters, not depth. Copilot gemini-flash is fast and free here. Go fallback uses qwen3.5-plus (10,200 req/5hr — nearly unlimited quota).",
+      "model": "github-copilot/gemini-3-flash-preview",
+      "fallback_models": [
+        { "model": "opencode-go/qwen3.5-plus" },
+        { "model": "opencode-go/minimax-m2.5" }
+      ],
+      "fallback": ["opencode-go/qwen3.5-plus", "opencode-go/minimax-m2.5"]
+    },
+
+    "explore": {
+      "_comment": "Fast codebase grep. grok-code-fast-1 is specifically recommended by omo docs for this agent and uses Copilot. gpt-5.4-mini as Copilot fallback. Go fallback: qwen3.5-plus (cheapest, fastest).",
+      "model": "github-copilot/claude-haiku-4.5",
+      "fallback_models": [
+        { "model": "github-copilot/gpt-5.4-mini" },
+        { "model": "opencode-go/qwen3.5-plus" }
+      ],
+      "fallback": ["github-copilot/gpt-5.4-mini", "opencode-go/qwen3.5-plus"]
+    },
+
+    "multimodal-looker": {
+      "_comment": "Vision + screenshot analysis. gemini-3-flash has vision, is fast, uses Copilot quota (not Go). gpt-4o as secondary vision fallback on Copilot.",
+      "model": "github-copilot/gemini-3-flash-preview",
+      "fallback_models": [{ "model": "github-copilot/gpt-4o" }],
+      "fallback": ["github-copilot/gemini-2.5-pro"]
+    },
+
+    "prometheus": {
+      "_comment": "Strategic planner. Dual-prompt but Claude-path preferred (interview-style, ~1100 lines). Kimi K2.6 is best OSS for this. Go-first to preserve Copilot. DeepSeek V4 Pro holds up on multi-step planning.",
+      "model": "opencode-go/kimi-k2.5",
+      "fallback_models": [
+        { "model": "opencode-go/kimi-k2.6" },
+        { "model": "opencode-go/deepseek-v4-pro" },
+        { "model": "github-copilot/gpt-5.2" }
+      ],
+      "fallback": ["opencode-go/kimi-k2.5", "opencode-go/deepseek-v4-pro"]
+    },
+
+    "metis": {
+      "_comment": "Gap analyzer — catches what Prometheus missed. Claude-native prompt, reasoning-intensive but shorter task. Kimi K2.6 or K2.5 sufficient.",
+      "model": "github-copilot/gemini-3-flash-preview",
+      "fallback_models": [
+        { "model": "opencode-go/mimo-v2.5" },
+        { "model": "opencode-go/deepseek-v4-pro" }
+      ],
+      "fallback": ["opencode-go/mimo-v2.5"]
+    },
+
+    "momus": {
+      "_comment": "Ruthless plan reviewer. GPT-native, xhigh reasoning — output gates execution so quality matters. Copilot-first. gemini-3.1-pro as Copilot fallback. DeepSeek V4 Pro as last resort (retains GPT autonomous character per docs).",
+      "model": "github-copilot/gpt-5.2",
+      "variant": "xhigh",
+      "fallback_models": [
+        { "model": "github-copilot/gemini-3.1-pro-preview", "variant": "high" },
+        { "model": "opencode-go/deepseek-v4-pro" }
+      ],
+      "fallback": [
+        "github-copilot/gemini-3.1-pro-preview",
+        "github-copilot/gpt-5.2-codex"
+      ]
+    },
+
+    "atlas": {
+      "_comment": "Executes Prometheus plans. Dual-prompt (Claude preferred, GPT supported). K2.5 is cheaper than K2.6 and sufficient for structured checklist execution. DeepSeek Flash as ultra-cheap Go fallback.",
+      "model": "opencode-go/mimo-v2.5",
+      "fallback_models": [
+        { "model": "opencode-go/mimo-v2.5-pro" },
+        { "model": "github-copilot/gpt-5.4-mini" }
+      ],
+      "fallback": [
+        "opencode-go/mimo-v2.5-pro",
+        "opencode-go/deepseek-v4-pro",
+        "opencode-go/deepseek-v4-flash"
+      ]
+    },
+
+    "sisyphus-junior": {
+      "_comment": "Lightweight orchestrator for simpler tasks. Uses cheapest capable Go models. qwen3.5-plus (10,200 req/5hr) and deepseek-v4-flash (31,650 req/5hr) burn almost no quota.",
+      "model": "opencode-go/qwen3.5-plus",
+      "fallback_models": [
+        { "model": "opencode-go/deepseek-v4-flash" },
+        { "model": "opencode-go/minimax-m2.5" }
+      ],
+      "fallback": ["opencode-go/deepseek-v4-flash", "opencode-go/minimax-m2.5"]
+    }
+  },
+
+  "categories": {
+    "visual-engineering": {
+      "_comment": "UI/frontend tasks — needs vision reasoning. Copilot gemini-3.1-pro is strong here. gemini-2.5-pro as Copilot fallback. Kimi K2.6 (vision-capable) as Go fallback.",
+      "model": "github-copilot/gemini-3.1-pro-preview",
+      "variant": "high",
+      "fallback_models": [
+        { "model": "github-copilot/gemini-2.5-pro" },
+        { "model": "opencode-go/kimi-k2.6" }
+      ],
+      "fallback": ["github-copilot/gemini-2.5-pro", "opencode-go/kimi-k2.6"]
+    },
+
+    "ultrabrain": {
+      "_comment": "Highest reasoning tasks (architecture, security, complex debugging). GPT-5.2 high on Copilot is the best available. gemini-3.1-pro as Copilot fallback.",
+      "model": "github-copilot/gpt-5.2",
+      "variant": "high",
+      "fallback_models": [
+        { "model": "github-copilot/gemini-3.1-pro-preview", "variant": "high" },
+        { "model": "opencode-go/deepseek-v4-pro" }
+      ],
+      "fallback": [
+        "github-copilot/gemini-3.1-pro-preview",
+        "opencode-go/kimi-k2.6"
+      ]
+    },
+
+    "deep": {
+      "_comment": "Deep coding tasks. gpt-5.2-codex medium is the best codex available in Copilot. 'DeepSeek >> MiniMax' per omo docs for multi-step autonomous work.",
+      "model": "github-copilot/gpt-5.2-codex",
+      "variant": "medium",
+      "fallback_models": [
+        { "model": "github-copilot/gemini-3.1-pro-preview", "variant": "high" },
+        { "model": "opencode-go/deepseek-v4-pro" }
+      ],
+      "fallback": ["github-copilot/gpt-5.2", "opencode-go/deepseek-v4-pro"]
+    },
+
+    "artistry": {
+      "_comment": "Creative/design tasks. Gemini models excel at aesthetics and prose quality. mimo-v2.5-pro as Go fallback (vision capable, higher quality than minimax for creative work).",
+      "model": "github-copilot/gemini-3.1-pro-preview",
+      "variant": "high",
+      "fallback_models": [
+        { "model": "github-copilot/gemini-2.5-pro" },
+        { "model": "opencode-go/mimo-v2.5-pro" }
+      ],
+      "fallback": ["github-copilot/gemini-2.5-pro", "opencode-go/kimi-k2.6"]
+    },
+
+    "quick": {
+      "_comment": "Trivial spawned tasks. qwen3.5-plus = 10,200 req/5hr (highest Go quota). deepseek-v4-flash = 31,650 req/5hr (virtually unlimited). These burn almost no Go budget.",
+      "model": "opencode-go/qwen3.5-plus",
+      "fallback_models": [
+        { "model": "opencode-go/deepseek-v4-flash" },
+        { "model": "github-copilot/gpt-5-mini" },
+        { "model": "opencode-go/minimax-m2.5" }
+      ],
+      "fallback": ["opencode-go/deepseek-v4-flash", "github-copilot/gpt-5-mini"]
+    },
+
+    "unspecified-low": {
+      "_comment": "Moderate tasks, unclassified. DeepSeek V4 Pro on Go: good balance of quality and quota (3,450 req/5hr). Kimi K2.5 as primary fallback.",
+      "model": "opencode-go/deepseek-v4-pro",
+      "fallback_models": [
+        { "model": "opencode-go/kimi-k2.5" },
+        { "model": "opencode-go/qwen3.6-plus" }
+      ],
+      "fallback": ["opencode-go/kimi-k2.5", "github-copilot/gpt-5.2-codex"]
+    },
+
+    "unspecified-high": {
+      "_comment": "Complex unclassified tasks. Kimi K2.6 on Go is vision-capable and handles complex nested work well. DeepSeek V4 Pro as second Go option. Copilot GPT as last resort.",
+      "model": "opencode-go/kimi-k2.6",
+      "fallback_models": [
+        { "model": "opencode-go/deepseek-v4-pro" },
+        { "model": "github-copilot/gpt-5.2" }
+      ],
+      "fallback": ["opencode-go/deepseek-v4-pro", "github-copilot/gpt-5.2"]
+    },
+
+    "writing": {
+      "_comment": "Documentation, prose, technical writing. Gemini flash on Copilot is fluent and fast. qwen3.5-plus as cheap Go fallback.",
+      "model": "github-copilot/gemini-3-flash-preview",
+      "fallback_models": [
+        { "model": "opencode-go/qwen3.5-plus" },
+        { "model": "opencode-go/kimi-k2.5" }
+      ],
+      "fallback": ["opencode-go/qwen3.5-plus"]
+    }
+  }
+}
